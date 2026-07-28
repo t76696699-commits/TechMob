@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>{{ product.name }} - TechMob</title>
+</head>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        background-color: #0f172a; color: #f8fafc;
+        display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 40px 20px;
+    }
+    .back-btn {
+        align-self: flex-start; margin-bottom: 20px; background: rgba(255,255,255,0.1);
+        color: white; border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; text-decoration: none; font-weight: bold;
+        display: flex; align-items: center; gap: 8px; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(59, 130, 246, 0.5); }
+    .detail-card {
+        display: flex; gap: 40px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 30px; max-width: 800px; width: 100%;
+        flex-wrap: wrap; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .detail-img { width: 300px; height: 350px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
+    .detail-info { display: flex; flex-direction: column; gap: 15px; flex-grow: 1; max-width: 400px; }
+    h1 { font-size: 1.8rem; color: #ffffff; }
+    .price-box { font-size: 1.5rem; color: #3b82f6; font-weight: bold; }
+    .storage-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+    .storage-btn {
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+        color: white; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s;
+    }
+    .storage-btn.selected { background: #3b82f6; border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+    .phone-box {
+        background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.4);
+        padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 10px; font-weight: bold; color: #22c55e;
+    }
+</style>
+<body>
+
+    <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Orqaga qaytish</a>
+
+    <div class="detail-card">
+        <img src="{{ product.img_url }}" alt="Rasm" class="detail-img">
+
+        <div class="detail-info">
+            <h1>{{ product.name }}</h1>
+            <p style="color: #94a3b8;"><b>Rang:</b> {{ product.color }}</p>
+            <div class="price-box">{{ product.price }}$</div>
+
+            <div>
+                <p style="margin-bottom: 8px; font-weight: 500;">Xotirani tanlang:</p>
+                <div class="storage-container">
+                    {% for st in storages %}
+                        <button class="storage-btn {% if loop.first %}selected{% endif %}" onclick="selectStorage(this)">{{ st }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="phone-box">
+                <i class="fa-solid fa-phone-volume"></i> Sotuvchi raqami: {{ product.phone }}
+            </div>
+
+            <button onclick="addToCartFromDetail('{{ product.id }}', '{{ product.name }}', '{{ product.price }}', '{{ product.img_url }}')" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px;">
+                <i class="fa-solid fa-cart-shopping"></i> Savatchaga qo'shish
+            </button>
+        </div>
+    </div>
+
+<script>
+    function selectStorage(btn) {
+        document.querySelectorAll('.storage-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+    }
+
+    function addToCartFromDetail(id, name, price, img) {
+        let selectedStorage = document.querySelector('.storage-btn.selected').innerText;
+        let fullName = `${name} (${selectedStorage})`;
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let existing = cart.find(item => item.id == id && item.name === fullName);
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({id, name: fullName, price: Number(price), img, quantity: 1});
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert("Tanlangan xotira bilan savatchaga qo'shildi! 🛒");
+    }
+</script>
+</body>
+</html>
