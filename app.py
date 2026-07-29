@@ -30,19 +30,19 @@ with app.app_context():
             User(name="Samsung Galaxy S10+ (Plus)",
                  img_url="https://cdn.3dnews.ru/assets/external/illustrations/2019/03/11/984021/sm.03.800.JPG",
                  color="Prism White",
-                 price=150, storage="128 GB, 512 GB"),
+                 price=180, storage="128 GB, 512 GB"),
             User(name="Samsung Galaxy note 10+ (Plus)",
                  img_url="https://superg.ru/wp-content/uploads/2019/09/P1430165.jpg",
                  color="Prism White",
-                 price=150, storage="128 GB, 512 GB"),
+                 price=220, storage="128 GB, 512 GB"),
             User(name="Samsung Galaxy S20 Ultra",
                  img_url="https://content.onliner.by/news/1400x5616/1b1ea59deef1c2dda6beed614258c22a.jpeg",
                  color="Cosmic Gray",
-                 price=220, storage="128 GB, 256 GB, 512gb"),
+                 price=235, storage="128 GB, 256 GB, 512gb"),
             User(name="Samsung Galaxy note 20 Ultra",
                  img_url="https://frankfurt.apollo.olxcdn.com/v1/files/abntgyx9lnc82-UZ/image",
                  color="Cosmic Gray",
-                 price=220, storage="128 GB, 256 GB, 512gb"),
+                 price=275, storage="128 GB, 256 GB, 512gb"),
             User(name="Samsung Galaxy S21 Ultra",
                  img_url="https://i.pcmag.com/imagery/reviews/060dYYYtGVk2fNOFYMRGldi-3.fit_lim.size_1050x.jpg",
                  color="Phantom Black",
@@ -287,7 +287,7 @@ def checkout():
     cart_items = data.get('cart', [])
     phone_number = data.get('phone', '')
     name = data.get('name', '')
-    location = data.get('location', '')  
+    location = data.get('location', '')
 
     print(f"Yangi buyurtma! Mijoz: {name}, Tel: {phone_number}, Manzil: {location}")
     for item in cart_items:
