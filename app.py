@@ -32,7 +32,7 @@ with app.app_context():
                  color="Prism White",
                  price=180, storage="128 GB, 512 GB"),
             User(name="Samsung Galaxy note 10+ (Plus)",
-                 img_url="https://superg.ru/wp-content/uploads/2019/09/P1430165.jpg",
+                 img_url="https://cdn.mos.cms.futurecdn.net/v2/t:0,l:429,cw:1142,ch:857,q:80,w:1142/qZ72bAe3HeZaXXm8Q6kUs7.jpg",
                  color="Prism White",
                  price=220, storage="128 GB, 512 GB"),
             User(name="Samsung Galaxy S20 Ultra",
